@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -18,14 +16,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $dateNow = Carbon::now();
-        User::insert([
+        User::create([
             'name' => 'Administrator',
             'email' => 'useradmin@gmail.com',
-            'password' => Hash::make('123456789'),
+            'password' => Hash::make('useradmin'),
             'user_type' => 1,
-            'created_at' => $dateNow,
-            'updated_at' => $dateNow
+            'remember_token' => Str::random(10),
+            'member_code' => Str::random(10),
         ]);
     }
 }
