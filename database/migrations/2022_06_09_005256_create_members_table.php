@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('tbl_members', function (Blueprint $table) {
             $table->increments('member_id');
+            $table->string('member_code', 10);
             $table->string('first_name', 20);
             $table->string('last_name', 20);
             $table->string('telephone', 15);
             $table->string('email')->unique();
             $table->timestamps();
+
+            $table->index('member_code');
         });
     }
 

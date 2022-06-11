@@ -19,6 +19,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    {{-- font awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -60,6 +65,48 @@
                             @else
                             @endguest
 
+                            <li class="nav-item">
+                                <a class="nav-link text-primary"
+                                    href="{{ route('home.index') }}">{{ __('Dashboard') }}</a>
+                            </li>
+
+                            {{-- Members --}}
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Members') }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdwon">
+                                    <a href="{{ route('members.index') }}" class="dropdown-item">
+                                        {{ __('View Members') }}
+                                    </a>
+
+                                    <a href="{{ route('members.create') }}" class="dropdown-item">
+                                        {{ __('Register Member') }}
+                                    </a>
+                                </div>
+                            </li>
+
+                            {{-- Users --}}
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Users') }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a href="#" class="dropdown-item">
+                                        {{ __('View Users') }}
+                                    </a>
+
+                                    <a href="#" class="dropdown-item">
+                                        {{ __('Register') }}
+                                    </a>
+                                </div>
+                            </li>
+
+                            {{-- Logout --}}
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -78,6 +125,9 @@
                                     </form>
                                 </div>
                             </li>
+
+
+
                         </ul>
                     </div>
                 </div>
@@ -86,7 +136,9 @@
 
 
         <main class="py-4">
-            @yield('content')
+            <div class="container-md">
+                @yield('content')
+            </div>
         </main>
     </div>
 
