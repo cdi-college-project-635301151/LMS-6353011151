@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembersController;
+use App\Http\Controllers\SystemUsersController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -22,4 +23,5 @@ Route::get('/', function () {
 Auth::routes();
 Route::resource('home', HomeController::class);
 Route::resource('members', MembersController::class);
+Route::resource('sys-users', SystemUsersController::class);
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

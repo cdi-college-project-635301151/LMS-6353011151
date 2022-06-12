@@ -21,6 +21,8 @@ return new class extends Migration
             $table->integer('user_type');
             $table->string('member_code', 10);
             $table->string('password');
+            $table->timestamp('password_updated_at')->nullable();
+            $table->char('is_blocked', 1);
             $table->rememberToken();
             $table->timestamps();
         });
