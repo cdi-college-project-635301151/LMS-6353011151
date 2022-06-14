@@ -70,9 +70,36 @@
                             @else
                             @endguest
 
+                            {{-- Dahsboard --}}
                             <li class="nav-item">
                                 <a class="nav-link text-primary"
                                     href="{{ route('home.index') }}">{{ __('Dashboard') }}</a>
+                            </li>
+
+                            {{-- Transactions --}}
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" v-pre>{{ __('Transactions') }}</a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navdropDown">
+                                    <a href="#" class="dropdown-item">{{ __('Reservations') }}</a>
+                                    <a href="#" class="dropdown-item">{{ __('Loans') }}</a>
+                                </div>
+                            </li>
+
+                            {{-- Books --}}
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false" v-pre>{{ _('Books') }}</a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navdropDown">
+                                    <a href="#" class="dropdown-item">{{ __('Book Lists') }}</a>
+                                    <a href="{{ route('categories.index') }}"
+                                        class="dropdown-item">{{ __('Book Categories') }}</a>
+                                    <a href="#" class="dropdown-item">{{ __('Book Genres') }}</a>
+                                    <a href="{{ route('maturity.index') }}"
+                                        class="dropdown-item">{{ __('Book Maturity') }}</a>
+                                </div>
                             </li>
 
                             {{-- Members --}}

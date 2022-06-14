@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\UserTypeModel;
-use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,13 +15,14 @@ class UserTypeSeeder extends Seeder
      */
     public function run()
     {
-        $dateNow = Carbon::now();
         $data = [
-            ['description' => 'Administrator', 'is_active' => '1', 'created_at' => $dateNow, 'updated_at' => $dateNow],
-            ['description' => 'Employee', 'is_active' => '1', 'created_at' => $dateNow, 'updated_at' => $dateNow],
-            ['description' => 'Student', 'is_active' => '1', 'created_at' => $dateNow, 'updated_at' => $dateNow],
+            ['description' => 'Administrator', 'is_active' => '1'],
+            ['description' => 'Employee', 'is_active' => '1'],
+            ['description' => 'Student', 'is_active' => '1'],
         ];
 
-        UserTypeModel::insert($data);
+        for ($i = 0; $i < count($data); $i++) {
+            UserTypeModel::create($data[$i]);
+        }
     }
 }

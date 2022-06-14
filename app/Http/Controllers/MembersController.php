@@ -101,20 +101,20 @@ class MembersController extends Controller
 
         try {
             $membersModel->where('member_code', $request->member_code)
-            ->update([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'telephone' => $request->telephone,
-                'email' => $request->email
-            ]);
+                ->update([
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'telephone' => $request->telephone,
+                    'email' => $request->email
+                ]);
 
             AddressModel::where('member_code', $request->member_code)
-            ->update([
-                'street_name' => $request->street_name,
-                'city' => $request->city,
-                'province' => $request->province,
-                'postal' => $request->postal
-            ]);
+                ->update([
+                    'street_name' => $request->street_name,
+                    'city' => $request->city,
+                    'province' => $request->province,
+                    'postal' => $request->postal
+                ]);
 
             return redirect()->route('members.index')->with('success', 'Member information was updated successfully.');
         } catch (\Exception $err) {

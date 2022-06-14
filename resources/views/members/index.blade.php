@@ -11,12 +11,7 @@
 
     <div class="row justify-content-center">
         @if ($message = Session::get('success'))
-            <div class="col-md-12">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Success!</strong> {{ $message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
+            @include('layouts.success')
         @endif
 
         <div class="col-md-12">
@@ -67,7 +62,7 @@
                             @endforeach
                         </tbody>
                     </table>
-
+                    {{ $members->links() }}
                 </div>
             </div>
         </div>
