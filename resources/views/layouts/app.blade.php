@@ -170,9 +170,11 @@
                 </div>
             </nav>
         @else
-            <script>
-                window.location.replace('/login')
-            </script>
+            @if (Route::currentRouteName() != '')
+                <script>
+                    window.location.replace('/')
+                </script>
+            @endif
         @endif
 
 
