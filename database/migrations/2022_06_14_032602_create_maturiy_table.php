@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('long_desc', 150);
             $table->char('is_enabled', 1);
             $table->timestamps();
+
+            $table->index('maturity_code');
         });
     }
 

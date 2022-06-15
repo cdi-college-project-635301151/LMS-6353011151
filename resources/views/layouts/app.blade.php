@@ -94,9 +94,12 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navdropDown">
                                     <a href="#" class="dropdown-item">{{ __('Book Lists') }}</a>
+                                    <a href="{{ route('authors.index') }}"
+                                        class="dropdown-item">{{ __('Authors') }}</a>
                                     <a href="{{ route('categories.index') }}"
                                         class="dropdown-item">{{ __('Book Categories') }}</a>
-                                    <a href="#" class="dropdown-item">{{ __('Book Genres') }}</a>
+                                    <a href="{{ route('genre.index') }}"
+                                        class="dropdown-item">{{ __('Book Genres') }}</a>
                                     <a href="{{ route('maturity.index') }}"
                                         class="dropdown-item">{{ __('Book Maturity') }}</a>
                                 </div>

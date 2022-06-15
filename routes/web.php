@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\BookAuthorsController;
 use App\Http\Controllers\BooksCategoriesController;
+use App\Http\Controllers\BooksGenreController;
 use App\Http\Controllers\BooksMaturityController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembersController;
@@ -29,4 +31,6 @@ Route::resources([
     'sys-users' => SystemUsersController::class,
     'categories' => BooksCategoriesController::class,
     'maturity' => BooksMaturityController::class,
+    'genre' => BooksGenreController::class,
+    'authors' => BookAuthorsController::class,
 ]);
