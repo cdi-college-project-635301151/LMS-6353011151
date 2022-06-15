@@ -2,12 +2,6 @@
 
 
 @section('content')
-    @if (empty(Auth::user()))
-        <script>
-            window.location.replace('/login')
-        </script>
-    @endif
-
     @if ($message = Session::get('success'))
         @include('layouts.success')
     @endif
@@ -21,7 +15,23 @@
                     <div class="table-responsive">
 
                         <table class="table table-striped">
-
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Year</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="8">{{ __('No Data found...') }}</td>
+                                </tr>
+                            </tbody>
                         </table>
 
                     </div>

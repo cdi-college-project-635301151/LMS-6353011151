@@ -94,6 +94,8 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navdropDown">
                                     <a href="#" class="dropdown-item">{{ __('Book Lists') }}</a>
+                                    <a href="{{ route('book-isbn.index') }}"
+                                        class="dropdown-item">{{ __('ISBN') }}</a>
                                     <a href="{{ route('authors.index') }}"
                                         class="dropdown-item">{{ __('Authors') }}</a>
                                     <a href="{{ route('categories.index') }}"
@@ -167,6 +169,10 @@
                     </div>
                 </div>
             </nav>
+        @else
+            <script>
+                window.location.replace('/login')
+            </script>
         @endif
 
 

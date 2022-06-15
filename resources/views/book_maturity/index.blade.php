@@ -1,11 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @if (empty(Auth::user()))
-        <script>
-            window.location.replace('/login')
-        </script>
-    @endif
-
     @if ($message = Session::get('success'))
         @include('layouts.success')
     @endif

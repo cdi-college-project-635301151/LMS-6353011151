@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookAuthorsController;
+use App\Http\Controllers\BookIsbnController;
 use App\Http\Controllers\BooksCategoriesController;
 use App\Http\Controllers\BooksGenreController;
 use App\Http\Controllers\BooksMaturityController;
@@ -33,4 +34,5 @@ Route::resources([
     'maturity' => BooksMaturityController::class,
     'genre' => BooksGenreController::class,
     'authors' => BookAuthorsController::class,
+    'book-isbn' => BookIsbnController::class,
 ]);

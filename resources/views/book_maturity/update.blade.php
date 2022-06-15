@@ -1,11 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @if (empty(Auth::user()))
-        <script>
-            window.location.replace('/login')
-        </script>
-    @endif
-
     <div class="row justify-content-center">
         <div class="card">
             <div class="card-header">{{ __('Update Maturity Category') }}</div>

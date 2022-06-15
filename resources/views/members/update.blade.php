@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (empty(Auth::user()))
-        <script>
-            window.location.replace('/login')
-        </script>
-    @endif
-
     <div class="row justify-content-center">
         @if ($message = Session::get('error'))
             <div class="alert alert-warning alert-dismissible fade show" role="alert">

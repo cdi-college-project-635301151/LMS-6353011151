@@ -1,11 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @if (empty(Auth::user()))
-        <script>
-            window.location.replace('/login')
-        </script>
-    @endif
-
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
