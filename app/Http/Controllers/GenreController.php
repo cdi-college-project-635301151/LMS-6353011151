@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BooksGenreModel;
+use App\Models\GenreModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class BooksGenreController extends Controller
+class GenreController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class BooksGenreController extends Controller
      */
     public function index()
     {
-        $booksGenres = BooksGenreModel::paginate(10);
-        return view('book_genre.index', compact('booksGenres'))->with(request()->input('page'));
+        $genres = GenreModel::paginate(10);
+        return view('genre.index', compact('genres'))->with(request()->input('page'));
     }
 
     /**
@@ -26,8 +26,8 @@ class BooksGenreController extends Controller
      */
     public function create()
     {
-        $genreCode = Str::random(10);
-        return view('book_genre.create', ['genreCode' => $genreCode]);
+        $genreCode = Str::random(20);
+        return view('genre.create', ['genreCode' => $genreCode]);
     }
 
     /**
@@ -43,9 +43,11 @@ class BooksGenreController extends Controller
             'long_desc' => ['required', 'min:3', 'max:150']
         ]);
 
-        BooksGenreModel::create($request->all());
+        GenreModel::create($request->all());
 
-        return redirect()->route('genre.index')->with('success', 'New book genre has been created');
+        return $request->createAddNew == 'on' ?
+            redirect()->route('genre.create')->with('success', 'New book genre has been created') :
+            redirect()->route('genre.index')->with('success', 'New book genre has been created');
     }
 
     /**
@@ -56,8 +58,8 @@ class BooksGenreController extends Controller
      */
     public function show($genre_code)
     {
-        $genre = BooksGenreModel::where('genre_code', $genre_code)->first();
-        return view('book_genre.update', ['genre' => $genre]);
+        $genre = GenreModel::where('genre_code', $genre_code)->first();
+        return view('genre.update', ['genre' => $genre]);
     }
 
     /**
@@ -66,7 +68,7 @@ class BooksGenreController extends Controller
      * @param  \App\Models\BooksGenreModel  $booksGenreModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, BooksGenreModel $booksGenreModel)
+    public function edit(Request $request, GenreModel $booksGenreModel)
     {
         //
     }
@@ -78,7 +80,7 @@ class BooksGenreController extends Controller
      * @param  \App\Models\BooksGenreModel  $booksGenreModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BooksGenreModel $booksGenreModel)
+    public function update(Request $request, GenreModel $booksGenreModel)
     {
         $request->validate([
             'short_desc' => ['required', 'min:3', 'max:50'],
@@ -100,7 +102,7 @@ class BooksGenreController extends Controller
      * @param  \App\Models\BooksGenreModel  $booksGenreModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BooksGenreModel $booksGenreModel)
+    public function destroy(GenreModel $booksGenreModel)
     {
         //
     }

@@ -8,35 +8,17 @@
 
                     <form action="{{ route('authors.store') }}" method="post">
                         @csrf
-
-                        <input type="hidden" name="is_enabled" value="1">
                         <input type="hidden" name="author_code" value="{{ $author_code }}">
-
-                        {{-- first name --}}
+                        <input type="hidden" name="is_enabled" value="1">
+                        {{-- full name --}}
                         <div class="row mb-3">
-                            <label for="short_desc"
-                                class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
+                            <label for="full_name"
+                                class="col-md-4 col-form-label text-md-end">{{ __('Full Name') }}</label>
                             <div class="col-md-8">
-                                <input type="text" name="first_name"
-                                    class="form-control @error('first_name') is-invalid @enderror"
-                                    value="{{ old('first_name') }}" autofocus>
-                                @error('first_name')
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- Last Name --}}
-                        <div class="row mb-3">
-                            <label for="short_desc"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Last Name') }}</label>
-                            <div class="col-md-8">
-                                <input type="text" name="last_name"
-                                    class="form-control @error('last_name') is-invalid @enderror"
-                                    value="{{ old('last_name') }}" autofocus>
-                                @error('last_name')
+                                <input type="text" name="full_name"
+                                    class="form-control @error('full_name') is-invalid @enderror"
+                                    value="{{ old('full_name') }}" autofocus>
+                                @error('full_name')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BooksMaturityModel;
+use App\Models\MaturityModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class BooksMaturityController extends Controller
+class MaturityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class BooksMaturityController extends Controller
      */
     public function index()
     {
-        $maturity = BooksMaturityModel::paginate(10);
-        return view('book_maturity.index', compact('maturity'))->with(request()->input('page'));
+        $maturity = MaturityModel::paginate(10);
+        return view('maturity.index', compact('maturity'))->with(request()->input('page'));
     }
 
     /**
@@ -26,8 +26,8 @@ class BooksMaturityController extends Controller
      */
     public function create()
     {
-        $maturityCode = Str::random(10);
-        return view('book_maturity.create', ['maturityCode' => $maturityCode]);
+        $maturityCode = Str::random(20);
+        return view('maturity.create', ['maturityCode' => $maturityCode]);
     }
 
     /**
@@ -43,9 +43,11 @@ class BooksMaturityController extends Controller
             'long_desc' => ['required', 'min:3', 'max:150'],
         ]);
 
-        BooksMaturityModel::create($request->all());
+        MaturityModel::create($request->all());
 
-        return redirect()->route('book_maturity.index')->with('success', 'New Book maturity category has been created');
+        return $request->createAddNew == 'on' ?
+            redirect()->route('maturity.create')->with('success', 'New Book maturity category has been created') :
+            redirect()->route('maturity.index')->with('success', 'New Book maturity category has been created');
     }
 
     /**
@@ -56,8 +58,8 @@ class BooksMaturityController extends Controller
      */
     public function show($maturityCode)
     {
-        $maturity = BooksMaturityModel::where('maturity_code', $maturityCode)->first();
-        return view('book_maturity.update', ['maturity' => $maturity]);
+        $maturity = MaturityModel::where('maturity_code', $maturityCode)->first();
+        return view('maturity.update', ['maturity' => $maturity]);
     }
 
     /**
@@ -66,7 +68,7 @@ class BooksMaturityController extends Controller
      * @param  \App\Models\BookMaturityModel  $bookMaturityModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(BooksMaturityModel $bookMaturityModel)
+    public function edit(MaturityModel $bookMaturityModel)
     {
         //
     }
@@ -85,7 +87,7 @@ class BooksMaturityController extends Controller
             'long_desc' => ['required', 'min:3', 'max:150'],
         ]);
 
-        BooksMaturityModel::where('maturity_code', $request->maturity_code)->update([
+        MaturityModel::where('maturity_code', $request->maturity_code)->update([
             'short_desc' => $request->short_desc,
             'long_desc' => $request->long_desc,
             'is_enabled' => $request->is_enabled
@@ -100,7 +102,7 @@ class BooksMaturityController extends Controller
      * @param  \App\Models\BookMaturityModel  $bookMaturityModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BooksMaturityModel $bookMaturityModel)
+    public function destroy(MaturityModel $bookMaturityModel)
     {
         //
     }

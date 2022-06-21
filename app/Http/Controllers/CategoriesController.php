@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BooksCategoriesModel;
+use App\Models\CategoriesModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class BooksCategoriesController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class BooksCategoriesController extends Controller
      */
     public function index()
     {
-        $categories = BooksCategoriesModel::paginate(10);
-        return view('book_categories.index', compact('categories'))->with(request()->input('page'));
+        $categories = CategoriesModel::paginate(10);
+        return view('categories.index', compact('categories'))->with(request()->input('page'));
     }
 
     /**
@@ -27,7 +27,7 @@ class BooksCategoriesController extends Controller
     public function create()
     {
         $categoryCode = Str::random(20);
-        return view('book_categories.create', ['categoryCode' => $categoryCode]);
+        return view('categories.create', ['categoryCode' => $categoryCode]);
     }
 
     /**
@@ -43,27 +43,29 @@ class BooksCategoriesController extends Controller
             'long_desc' => ['required', 'min:3', 'max:150'],
         ]);
 
-        BooksCategoriesModel::create($request->all());
+        CategoriesModel::create($request->all());
 
-        return redirect()->route('categories.index')->with('success', 'New Category has been creadted.');
+        return $request->createAddNew == 'on' ?
+            redirect()->route('categories.create')->with('success', 'New Category has been creadted.') :
+            redirect()->route('categories.index')->with('success', 'New Category has been creadted.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\BooksCategoriesModel  $booksCategoriesModel
+     * @param  \App\Models\CategoriesModel  $CategoriesModel
      * @return \Illuminate\Http\Response
      */
     public function show($categoryCode)
     {
-        $category = BooksCategoriesModel::where('category_code', $categoryCode)->first();
-        return view('book_categories.update', ['category' => $category]);
+        $category = CategoriesModel::where('category_code', $categoryCode)->first();
+        return view('categories.update', ['category' => $category]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\BooksCategoriesModel  $booksCategoriesModel
+     * @param  \App\Models\CategoriesModel  $CategoriesModel
      * @return \Illuminate\Http\Response
      */
     public function edit($categoryCode)
@@ -75,7 +77,7 @@ class BooksCategoriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BooksCategoriesModel  $booksCategoriesModel
+     * @param  \App\Models\CategoriesModel  $CategoriesModel
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -85,9 +87,10 @@ class BooksCategoriesController extends Controller
             'long_desc' => ['required', 'min:3', 'max:150'],
         ]);
 
-        BooksCategoriesModel::where('category_code', $request->category_code)->update([
+        CategoriesModel::where('category_code', $request->category_code)->update([
             'short_desc' => $request->short_desc,
-            'long_desc' => $request->long_desc
+            'long_desc' => $request->long_desc,
+            'is_enabled' => $request->is_enabled
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Successfully update a category');
@@ -96,7 +99,7 @@ class BooksCategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\BooksCategoriesModel  $booksCategoriesModel
+     * @param  \App\Models\CategoriesModel  $CategoriesModel
      * @return \Illuminate\Http\Response
      */
     public function destroy($categoryCode)

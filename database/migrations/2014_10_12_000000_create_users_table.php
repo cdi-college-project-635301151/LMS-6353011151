@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('user_type');
-            $table->string('member_code', 10);
+            $table->string('member_code', 20);
             $table->string('password');
             $table->timestamp('password_updated_at')->nullable();
             $table->char('is_blocked', 1);

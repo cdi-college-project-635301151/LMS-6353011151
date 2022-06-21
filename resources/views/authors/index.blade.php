@@ -20,8 +20,8 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Full Name</th>
-                                    <th scope="col">Status</th>
                                     <th scope="col">Created At</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Updated At</th>
                                     <th scope="col">Actions</th>
                                 </tr>
@@ -36,8 +36,7 @@
                                 @foreach ($authors as $author)
                                     <tr>
                                         <th scope="row" class="pt-3">{{ $author->id }}.</th>
-                                        <td class="pt-3">{{ $author->first_name . ' ' . $author->last_name }}
-                                        </td>
+                                        <td class="pt-3">{{ $author->full_name }}</td>
                                         <td class="pt-3">
                                             {{ $author->is_enabled == '1' ? 'Active' : 'Inactive' }}</td>
                                         <td class="pt-3">{{ $author->created_at->format('D M d, Y h:m a') }}

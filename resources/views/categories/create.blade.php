@@ -3,6 +3,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                @if ($message = Session::get('success'))
+                    @include('layouts.success')
+                @endif
+
                 <div class="card">
                     <div class="card-header">{{ __('Create Category') }}</div>
                     <div class="card-body">
@@ -28,14 +32,26 @@
 
                             {{-- Long Description --}}
                             <div class="row mb-3">
-                                <label class="col-md-4 col-form label text-md-end">{{ __('Long Description') }}</label>
+                                <label class="col-md-4 col-form-label text-md-end">{{ __('Long Description') }}</label>
                                 <div class="col-md-8">
-                                    <textarea name="long_desc" cols="10" rows="3" class="form-control @error('long_desc') is-invalid @enderror">{{ old('long_desc') }}</textarea>
+                                    <textarea name="long_desc" cols="10" rows="3" class="form-control @error('long_desc') is-invalid @enderror"
+                                        required>{{ old('long_desc') }}</textarea>
                                     @error('long_desc')
                                         <span class="invalid-feedback">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                            </div>
+
+                            {{-- save add new --}}
+                            <div class="row mb-3">
+                                <label for="createAddNew" class="col-md-4 col-form-label text-md-end"></label>
+                                <div class="col-md-8">
+                                    <input type="checkbox" class="form-check-input" name="createAddNew">
+                                    <label class="form-check-label text-primary" for="createAddNew">
+                                        <i>{{ __('Create & Add New') }} ?</i>
+                                    </label>
                                 </div>
                             </div>
 

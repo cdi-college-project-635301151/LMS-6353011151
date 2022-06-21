@@ -76,10 +76,17 @@
                                     href="{{ route('home.index') }}">{{ __('Dashboard') }}</a>
                             </li>
 
+                            {{-- Documents --}}
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('documents.index') }}">{{ __('Documents') }}</a>
+                            </li>
+
                             {{-- Transactions --}}
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" v-pre>{{ __('Transactions') }}</a>
+                                <a href="#" class="nav-link dropdown-toggle" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    v-pre>{{ __('Transactions') }}</a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navdropDown">
                                     <a href="#" class="dropdown-item">{{ __('Reservations') }}</a>
@@ -87,30 +94,32 @@
                                 </div>
                             </li>
 
-                            {{-- Books --}}
+                            {{-- Settings --}}
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" v-pre>{{ _('Books') }}</a>
+                                <a href="#" class="nav-link dropdown-toggle" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                    v-pre>{{ _('Settings') }}</a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navdropDown">
-                                    <a href="#" class="dropdown-item">{{ __('Book Lists') }}</a>
                                     <a href="{{ route('book-isbn.index') }}"
                                         class="dropdown-item">{{ __('ISBN') }}</a>
                                     <a href="{{ route('authors.index') }}"
                                         class="dropdown-item">{{ __('Authors') }}</a>
                                     <a href="{{ route('categories.index') }}"
-                                        class="dropdown-item">{{ __('Book Categories') }}</a>
+                                        class="dropdown-item">{{ __('Categories') }}</a>
                                     <a href="{{ route('genre.index') }}"
-                                        class="dropdown-item">{{ __('Book Genres') }}</a>
+                                        class="dropdown-item">{{ __('Genre') }}</a>
                                     <a href="{{ route('maturity.index') }}"
-                                        class="dropdown-item">{{ __('Book Maturity') }}</a>
+                                        class="dropdown-item">{{ __('Maturity') }}</a>
+                                    <a href="{{ route('documents-types.index') }}"
+                                        class="dropdown-item">{{ __('Document Types') }}</a>
                                 </div>
                             </li>
 
                             {{-- Members --}}
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a href="#" class="nav-link dropdown-toggle" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ __('Members') }}
                                 </a>
 
@@ -127,8 +136,8 @@
 
                             {{-- Users --}}
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a href="#" class="nav-link dropdown-toggle" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ __('Users') }}
                                 </a>
 
@@ -145,13 +154,15 @@
 
                             {{-- Logout --}}
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
@@ -184,6 +195,12 @@
             </div>
         </main>
     </div>
+
+    <script>
+        String.prototype.trimAll = function() {
+            return this.replace(/\s\s+/g, ' ').replace(/^\s+|\s+$/g, '');
+        };
+    </script>
 
 </body>
 

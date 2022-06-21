@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BookIsbnModel extends Model
 {
     use HasFactory;
-    protected $table = 'tbl_book_isbn';
-    protected $fillable = ['isbn_code', 'isbn_desc', 'is_enabled'];
+    protected $table = "tbl_books_isbn";
+    protected $fillable = ["isbn_code", "isbn_desc", "short_desc", "is_enabled"];
 }

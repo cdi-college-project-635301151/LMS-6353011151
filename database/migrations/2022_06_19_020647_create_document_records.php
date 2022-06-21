@@ -13,15 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_book_authors', function (Blueprint $table) {
+        Schema::create('tbl_document_records', function (Blueprint $table) {
             $table->id();
-            $table->string('author_code', 10);
-            $table->string('first_name', 20);
-            $table->string('last_name', 20);
+            $table->string('document_code', 20);
+            $table->string('doc_title', 75);
+            $table->string('short_desc', 100);
+            $table->string('isbn_number', 15)->nullable();
+            $table->string('author_code', 20);
+            $table->integer('publication_year');
+            $table->integer('quantity');
             $table->char('is_enabled', 1);
             $table->timestamps();
 
-            $table->index('author_code');
+            $table->index('document_code');
         });
     }
 
@@ -32,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_book_authors');
+        Schema::dropIfExists('tbl_document_records');
     }
 };

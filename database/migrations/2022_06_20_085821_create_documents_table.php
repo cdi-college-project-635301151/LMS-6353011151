@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_maturity', function (Blueprint $table) {
+        Schema::create('tbl_documents', function (Blueprint $table) {
             $table->id();
+            $table->string('document_code', 20)->unique();
+            $table->string('doc_type_code', 20);
             $table->string('maturity_code', 20);
-            $table->string('short_desc', 50);
-            $table->string('long_desc', 150);
+            $table->string('genre_code', 20);
+            $table->string('category_code', 20);
             $table->char('is_enabled', 1);
             $table->timestamps();
 
-            $table->index('maturity_code');
+            $table->index('document_code');
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_maturity');
+        Schema::dropIfExists('tbl_documents');
     }
 };

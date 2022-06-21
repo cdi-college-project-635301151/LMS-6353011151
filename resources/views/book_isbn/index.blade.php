@@ -11,7 +11,7 @@
                 <div class="card-body">
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                        <a type="button" class="btn btn-primary btn-sm" href="#">
+                        <a type="button" class="btn btn-primary btn-sm" href="{{ route('book-isbn.create') }}">
                             {{ __('Create ISBN') }}
                         </a>
                     </div>
@@ -30,13 +30,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td colspan="7">{{ __('No Data found....') }}</td>
-                                </tr>
+                                @if (count($records) == 0)
+                                    <tr>
+                                        <td colspan="7">{{ __('No Data found....') }}</td>
+                                    </tr>
+                                @endif
+
+                                @foreach ($records as $record)
+                                    <tr>
+                                        <th scope="row">{{ $record->id }}</th>
+                                        <td>{{ $record->isbn_desc }}</td>
+                                        <td>{{ $record->short_desc }}</td>
+                                        <td>{{ $record->is_enabed ? 'Active' : 'Inactive' }}</td>
+                                        <td>{{ $record->created_at->format('D M d, Y h:m a') }}</td>
+                                        <td>{{ $record->updated_at->format('D M d, Y h:m a') }}</td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
-
+                    {{ $records->links() }}
                 </div>
             </div>
         </div>

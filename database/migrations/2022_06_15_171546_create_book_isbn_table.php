@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('tbl_books_isbn', function (Blueprint $table) {
             $table->id();
-            $table->string('isbn_code', 10);
-            $table->string('isbn_desc', 75);
+            $table->string('isbn_code', 20);
+            $table->string('isbn_desc', 12)->unique();
+            $table->string('short_desc', 100);
             $table->char('is_enabled', 1);
             $table->timestamps();
 

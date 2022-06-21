@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_books_categories', function (Blueprint $table) {
+        Schema::create('tbl_authors', function (Blueprint $table) {
             $table->id();
-            $table->string('category_code', 20);
-            $table->string('short_desc', 50);
-            $table->string('long_desc', 150);
+            $table->string('author_code', 20);
+            $table->string('author_name', 80);
             $table->char('is_enabled', 1);
             $table->timestamps();
 
-            $table->index('category_code');
+            $table->index('author_code');
         });
     }
 
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_books_categories');
+        Schema::dropIfExists('tbl_authors');
     }
 };

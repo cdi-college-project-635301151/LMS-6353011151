@@ -13,7 +13,7 @@
                     <div class="card-body">
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
                             <a href="{{ route('categories.create') }}"
-                                class="btn btn-sm btn-float-end btn-success">{{ __('Create Category') }}</a>
+                                class="btn btn-sm btn-float-end btn-primary">{{ __('Create Category') }}</a>
                         </div>
 
                         <div class="table-responsive">
@@ -47,9 +47,9 @@
                                             </td>
                                             <td class="pt-3">
                                                 {{ $category->is_enabled == '1' ? 'Active' : 'Inactive' }}</td>
-                                            <td class="pt-3">{{ $category->created_at->format('D M d, Y') }}
+                                            <td class="pt-3">{{ $category->created_at->format('D M d, Y h:m a') }}
                                             </td>
-                                            <td class="pt-3">{{ $category->updated_at->format('D M d, Y') }}
+                                            <td class="pt-3">{{ $category->updated_at->format('D M d, Y h:m a') }}
                                             </td>
                                             <td class="pt-3">
                                                 <a href="#" class="btn btn-link btn-sm p-0" data-bs-toggle="dropdown"

@@ -9,7 +9,7 @@ class MembersModel extends Model
 {
     use HasFactory;
     protected $table = "tbl_members";
-    protected $fillable = ['first_name', 'last_name', 'telephone', 'email', 'member_code'];
+    protected $fillable = ["first_name", "last_name", "telephone", "email", "member_code"];
     protected $primaryKey = "member_id";
     protected $keyType = "int";
 }

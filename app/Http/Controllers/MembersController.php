@@ -28,7 +28,7 @@ class MembersController extends Controller
      */
     public function create()
     {
-        $memberCode = Str::random(10);
+        $memberCode = Str::random(20);
         return view('members.register', ['memberCode' => $memberCode]);
     }
 

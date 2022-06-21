@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BookAuthorsModel;
+use App\Models\AuthorsModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class BookAuthorsController extends Controller
+class AuthorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class BookAuthorsController extends Controller
      */
     public function index()
     {
-        $authors = BookAuthorsModel::paginate(15);
+        $authors = AuthorsModel::paginate(15);
 
         return view('authors.index', compact('authors'))->with(request()->input('page'));
     }
@@ -27,7 +27,7 @@ class BookAuthorsController extends Controller
      */
     public function create()
     {
-        $authorCode = Str::random(10);
+        $authorCode = Str::random(20);
         return view('authors.create', ['author_code' => $authorCode]);
     }
 
@@ -41,11 +41,10 @@ class BookAuthorsController extends Controller
     {
         $request->validate([
             'author_code' => ['required'],
-            'first_name' => ['required', 'min:3', 'max:20'],
-            'last_name' => ['required', 'min:3', 'max:20'],
+            'author_name' => ['required', 'min:3', 'max:20'],
         ]);
 
-        BookAuthorsModel::create($request->all());
+        AuthorsModel::create($request->all());
 
         return redirect()->route('authors.index')->with('success', 'New Author successfully registerd.');
     }
@@ -58,7 +57,7 @@ class BookAuthorsController extends Controller
      */
     public function show($authorCode)
     {
-        $author = BookAuthorsModel::where('author_code', $authorCode)->first();
+        $author = AuthorsModel::where('author_code', $authorCode)->first();
         return view('authors.update', ['author' => $author]);
     }
 
@@ -68,7 +67,7 @@ class BookAuthorsController extends Controller
      * @param  \App\Models\BookAuthorsModel  $bookAuthorsModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(BookAuthorsModel $bookAuthorsModel)
+    public function edit(AuthorsModel $bookAuthorsModel)
     {
         //
     }
@@ -80,17 +79,15 @@ class BookAuthorsController extends Controller
      * @param  \App\Models\BookAuthorsModel  $bookAuthorsModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BookAuthorsModel $bookAuthorsModel)
+    public function update(Request $request, AuthorsModel $bookAuthorsModel)
     {
         $request->validate([
             'author_code' => ['required'],
-            'first_name' => ['required', 'min:3', 'max:20'],
-            'last_name' => ['required', 'min:3', 'max:20'],
+            'author_name' => ['required', 'min:3', 'max:20'],
         ]);
 
-        BookAuthorsModel::where('author_code', $request->author_code)->update([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
+        AuthorsModel::where('author_code', $request->author_code)->update([
+            'full_name' => $request->author_name,
             'is_enabled' => $request->is_enabled,
         ]);
 
@@ -103,7 +100,7 @@ class BookAuthorsController extends Controller
      * @param  \App\Models\BookAuthorsModel  $bookAuthorsModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(BookAuthorsModel $bookAuthorsModel)
+    public function destroy(AuthorsModel $bookAuthorsModel)
     {
         //
     }

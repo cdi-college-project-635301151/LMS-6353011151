@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\BookIsbnModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+use function PHPUnit\Framework\returnSelf;
 
 class BookIsbnController extends Controller
 {
@@ -14,7 +17,10 @@ class BookIsbnController extends Controller
      */
     public function index()
     {
-        return view('book_isbn.index');
+        $isbnModel = new BookIsbnModel;
+        $records = $isbnModel->paginate(15);
+
+        return view('book_isbn.index', compact('records'))->with(request()->input('page'));
     }
 
     /**
@@ -24,7 +30,8 @@ class BookIsbnController extends Controller
      */
     public function create()
     {
-        //
+        $bookCode = Str::random(20);
+        return view('book_isbn.create', ['book_code' => $bookCode]);
     }
 
     /**
@@ -35,7 +42,16 @@ class BookIsbnController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'isbn_desc' => ['required', 'min:9', 'max:12', 'unique:tbl_books_isbn'],
+            'short_desc' => ['required', 'min:3', 'max:100']
+        ]);
+
+        BookIsbnModel::create($request->all());
+
+        return $request->saveAddNew == 'on' ?
+            redirect()->route('book-isbn.create')->with('success', 'New ISBN has been created') :
+            redirect()->route('book-isbn.index')->with('success', 'New ISBN has been created');
     }
 
     /**

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tbl_address', function (Blueprint $table) {
             $table->id();
-            $table->string('member_code', 10);
+            $table->string('member_code', 20);
             $table->string('street_name', 50);
             $table->string('city', 30);
             $table->string('province', 5);

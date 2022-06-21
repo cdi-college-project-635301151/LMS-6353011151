@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\BookAuthorsController;
+use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\BookIsbnController;
-use App\Http\Controllers\BooksCategoriesController;
-use App\Http\Controllers\BooksGenreController;
-use App\Http\Controllers\BooksMaturityController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\MaturityController;
+use App\Http\Controllers\DocumentRecordsController;
+use App\Http\Controllers\DocumentTypeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MembersController;
 use App\Http\Controllers\SystemUsersController;
@@ -30,9 +32,11 @@ Route::resources([
     'home' => HomeController::class,
     'members' => MembersController::class,
     'sys-users' => SystemUsersController::class,
-    'categories' => BooksCategoriesController::class,
-    'maturity' => BooksMaturityController::class,
-    'genre' => BooksGenreController::class,
-    'authors' => BookAuthorsController::class,
+    'categories' => CategoriesController::class,
+    'maturity' => MaturityController::class,
+    'genre' => GenreController::class,
+    'authors' => AuthorsController::class,
     'book-isbn' => BookIsbnController::class,
+    'documents' => DocumentRecordsController::class,
+    'documents-types' => DocumentTypeController::class,
 ]);

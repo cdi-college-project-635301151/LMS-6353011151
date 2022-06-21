@@ -12,7 +12,7 @@
 
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
                         <a href="{{ route('maturity.create') }}"
-                            class="btn btn-sm btn-float-end btn-success">{{ __('Create Maturity Category') }}</a>
+                            class="btn btn-sm btn-primary">{{ __('Create Maturity Category') }}</a>
                     </div>
 
                     <div class="table-responsive">

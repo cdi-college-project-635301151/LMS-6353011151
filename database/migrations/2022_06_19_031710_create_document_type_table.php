@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_books_genre', function (Blueprint $table) {
+        Schema::create('tbl_document_type', function (Blueprint $table) {
             $table->id();
-            $table->string('genre_code', 10);
+            $table->string('doc_type_code', 20);
             $table->string('short_desc', 50);
-            $table->string('long_desc', 150);
             $table->char('is_enabled', 1);
             $table->timestamps();
 
-            $table->index('genre_code');
+            $table->index('doc_type_code');
         });
     }
 
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_books_genre');
+        Schema::dropIfExists('tbl_document_type');
     }
 };
