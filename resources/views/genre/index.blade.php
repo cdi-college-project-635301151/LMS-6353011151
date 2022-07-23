@@ -8,13 +8,22 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Book Gengre') }}</div>
-                <div class="card-body">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        <a href="{{ route('genre.create') }}" class="btn btn-primary btn-sm">
-                            {{ __('Add Genre') }}
-                        </a>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            {{ __('Book Gengre') }}
+                        </div>
+                        <div class="col">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="{{ route('genre.create') }}" class="btn btn-primary btn-sm">
+                                    {{ __('Add Genre') }}
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="card-body">
+
 
                     <div class="table-responsive">
 
@@ -113,7 +122,7 @@
                         </table>
 
                     </div>
-                    {{ $genres->links() }}
+                    {{-- {{ $genres->links() }} --}}
 
                 </div>
             </div>

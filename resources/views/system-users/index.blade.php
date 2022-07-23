@@ -2,13 +2,24 @@
 
 @section('content')
     @if ($message = Session::get('success'))
-        {{ $message }}
+        @include('layouts.success')
     @endif
 
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('System Users') }}</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            {{ __('System Users') }}
+                        </div>
+                        <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ route('sys-users.create') }}" class="btn btn-sm btn-primary">
+                                {{ __('Grant Access') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
@@ -24,12 +35,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (count($users) == 0)
-                                <tr>
-                                    <td colspan="8">No data found</td>
-                                </tr>
-                            @endif
-
                             @foreach ($users as $user)
                                 <tr>
                                     <th scope="row">{{ $user->id }}.</th>
@@ -41,14 +46,20 @@
                                     <td>{{ $user->updated_at->format('D M d, Y') }}</td>
                                     <td>
                                         <div class="dropend">
-                                            <button class="btn btn-link btn-sm p-0" type="button" id="dropdownMenu2"
+                                            <a href="{{ route('password-reset.index', ['member_code' => $user->member_code]) }}"
+                                                class="btn btn-sm btn-warning p-0 ps-2 pe-2">
+                                                <i class="fa-solid fa-fingerprint"></i>
+                                                Reset Password</a>
+                                            {{-- <button class="btn btn-link btn-sm p-0" type="button" id="dropdownMenu2"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fa-solid fa-ellipsis"></i>
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                                 <li>
-                                                    <a href="#" class="dropdown-item"
-                                                        type="button">{{ __('Reset Password') }}</a>
+                                                    <a href="{{ route('password-reset.index', ['member_code' => $user->member_code]) }}"
+                                                        class="dropdown-item">
+                                                        <i class="fa-solid fa-fingerprint"></i> Reset
+                                                        Password</a>
                                                 </li>
                                                 <li>
                                                     @if ($user->is_blocked == '1')
@@ -59,7 +70,7 @@
                                                             type="button">{{ __('Revoke Access') }}</button>
                                                     @endif
                                                 </li>
-                                            </ul>
+                                            </ul> --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -67,7 +78,6 @@
 
                         </tbody>
                     </table>
-                    {{ $users->links() }}
                 </div>
             </div>
         </div>

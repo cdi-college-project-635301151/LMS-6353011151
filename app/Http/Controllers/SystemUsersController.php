@@ -9,7 +9,6 @@ use App\Models\UserTypeModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class SystemUsersController extends Controller
@@ -21,10 +20,13 @@ class SystemUsersController extends Controller
      */
     public function index()
     {
-        $usersViewModel = new SystemUsersViewModel;
-        $users = $usersViewModel->paginate(5);
+        // $usersViewModel = new SystemUsersViewModel;
+        // $users = $usersViewModel->paginate(5);
 
-        return view('system-users.index', compact('users'))->with(request()->input('page'));
+        // return view('system-users.index', compact('users'))->with(request()->input('page'));
+
+        $users = SystemUsersViewModel::get();
+        return view('system-users.index', compact('users'));
     }
 
     /**
@@ -34,15 +36,16 @@ class SystemUsersController extends Controller
      */
     public function create()
     {
-        $userType = new UserTypeModel;
-        $members = new MembersModel;
-        $users = new User;
-        $memberList = $members->whereNotIn('member_code', $users->select('member_code')->get())->get();
+        $memberList = MembersModel::whereNotIn('member_code', User::select('member_code')->get())->get();
         $tempPassword = Str::random(10);
 
         return view(
             'system-users.create',
-            ['userTypes' => $userType->get(), 'memberLists' => $memberList, 'tempPassword' => $tempPassword]
+            [
+                'userTypes' => UserTypeModel::get(),
+                'memberLists' => $memberList,
+                'tempPassword' => $tempPassword
+            ]
         );
     }
 
@@ -60,11 +63,10 @@ class SystemUsersController extends Controller
             'password' => 'required',
         ]);
 
-        $memberModel = new MembersModel;
-        $user = new User;
+        // $user = new User;
         $dateNow = Carbon::now();
 
-        $member = $memberModel->where('member_code', $request->member_code)->first();
+        $member = MembersModel::where('member_code', $request->member_code)->first();
 
         $data = [
             'name' => $member->first_name . ' ' . $member->last_name,
@@ -77,7 +79,9 @@ class SystemUsersController extends Controller
             'is_blocked' => '0'
         ];
 
-        $user->create($data);
+        $request->merge($data);
+
+        User::create($request->all());
 
         return redirect()->route('sys-users.index')->with('success', 'New system user has been created');
     }
@@ -88,9 +92,9 @@ class SystemUsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(SystemUsersViewModel $user)
     {
-        //
+        dd($user);
     }
 
     /**
@@ -99,7 +103,7 @@ class SystemUsersController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(SystemUsersViewModel $user)
     {
         //
     }

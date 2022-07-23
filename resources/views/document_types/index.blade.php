@@ -8,13 +8,22 @@
             @endif
 
             <div class="card">
-                <div class="card-header">{{ __('Document Types') }}</div>
-                <div class="card-body">
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                        <a type="button" class="btn btn-primary" href="{{ route('documents-types.create') }}">
-                            {{ __('Create Document Types') }}
-                        </a>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            {{ __('Document Types') }}
+                        </div>
+                        <div class="col">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a type="button" class="btn btn-primary" href="{{ route('documents-types.create') }}">
+                                    {{ __('Create Document Types') }}
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="card-body">
+
 
                     <div class="table-responsive">
 

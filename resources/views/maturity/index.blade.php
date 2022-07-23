@@ -7,13 +7,22 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Maturity Categories') }}</div>
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col">
+                            {{ __('Maturity Categories') }}
+                        </div>
+                        <div class="col">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="{{ route('maturity.create') }}"
+                                    class="btn btn-sm btn-primary">{{ __('Create Maturity Category') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body">
 
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-3">
-                        <a href="{{ route('maturity.create') }}"
-                            class="btn btn-sm btn-primary">{{ __('Create Maturity Category') }}</a>
-                    </div>
+
 
                     <div class="table-responsive">
 
@@ -28,12 +37,6 @@
                                 <th scope="col">Actions</th>
                             </thead>
                             <tbody>
-                                @if (count($maturity) == 0)
-                                    <tr>
-                                        <td colspan="7">No data found...</td>
-                                    </tr>
-                                @endif
-
                                 @foreach ($maturity as $category)
                                     <tr>
                                         <th scope="row" class="pt-3">{{ $category->id }}</th>
@@ -75,7 +78,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $maturity->links() }}
+                    {{-- {{ $maturity->links() }} --}}
                 </div>
             </div>
         </div>

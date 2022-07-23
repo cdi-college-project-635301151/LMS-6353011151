@@ -15,8 +15,8 @@ class MaturityController extends Controller
      */
     public function index()
     {
-        $maturity = MaturityModel::paginate(10);
-        return view('maturity.index', compact('maturity'))->with(request()->input('page'));
+        $maturity = MaturityModel::get();
+        return view('maturity.index', compact('maturity'));
     }
 
     /**

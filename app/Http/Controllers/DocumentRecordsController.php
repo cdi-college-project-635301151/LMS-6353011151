@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\AuthorsModel;
-use App\Models\BookIsbnModel;
+use App\Models\BorrowersTypeModel;
 use App\Models\CategoriesModel;
 use App\Models\DocumentRecordsModel;
 use App\Models\DocumentsModel;
 use App\Models\DocumentTypeModel;
 use App\Models\GenreModel;
 use App\Models\MaturityModel;
+use App\Models\ViewDocumentsModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -23,8 +24,9 @@ class DocumentRecordsController extends Controller
      */
     public function index()
     {
-        $documents = DocumentRecordsModel::paginate(10);
-        return view('documents.index', compact('documents'))->with(request()->input('page'));
+        $documents = ViewDocumentsModel::get();
+        $borrowerType = BorrowersTypeModel::get();
+        return view('documents.index', compact('documents'), compact('borrowerType'));
     }
 
     /**
@@ -66,7 +68,7 @@ class DocumentRecordsController extends Controller
         $documentTypes = new DocumentTypeModel;
         $documents = new DocumentsModel;
 
-        $document_code = Str::random(10);
+        $document_code = Str::random(20);
 
         $request->validate([
             'doc_title' => ['required', 'min:3', 'max:75', 'unique:tbl_document_records'],
@@ -82,19 +84,19 @@ class DocumentRecordsController extends Controller
         ]);
 
         $author = $authors->where('author_name', $request->author_name)->first();
-        $author_code = !empty($author) ? $author->author_code : Str::random(10);
+        $author_code = !empty($author) ? $author->author_code : Str::random(20);
 
         $category = $categories->where('short_desc', $request->category_name)->first();
-        $categor_code = !empty($category) ? $category->category_code : Str::random(10);
+        $categor_code = !empty($category) ? $category->category_code : Str::random(20);
 
         $genre = $genres->where('short_desc', $request->genre_name)->first();
-        $genre_code = !empty($genre) ? $genre->genre_code : Str::random(10);
+        $genre_code = !empty($genre) ? $genre->genre_code : Str::random(20);
 
         $maturity = $maturities->where('short_desc', $request->maturity_name)->first();
-        $maturity_code = !empty($maturity) ? $maturity->maturity_code : Str::random(10);
+        $maturity_code = !empty($maturity) ? $maturity->maturity_code : Str::random(20);
 
         $documentType = $documentTypes->where('short_desc', $request->doc_type_name)->first();
-        $doc_type_code = !empty($documentType) ? $documentType->doc_type_code : Str::random(10);
+        $doc_type_code = !empty($documentType) ? $documentType->doc_type_code : Str::random(20);
 
         $request->merge([
             'document_code' => $document_code,
@@ -177,9 +179,27 @@ class DocumentRecordsController extends Controller
      * @param  \App\Models\DocumentRecordsModel  $documentRecordsModel
      * @return \Illuminate\Http\Response
      */
-    public function show(DocumentRecordsModel $documentRecordsModel)
+    public function show($document_code)
     {
-        //
+
+        $authorList = AuthorsModel::where('is_enabled', '1')->get();
+        $documentTypeList = DocumentTypeModel::where('is_enabled', '1')->get();
+        $maturityList = MaturityModel::where('is_enabled', '1')->get();
+        $genreList = GenreModel::where('is_enabled', '1')->get();
+        $categoryList = CategoriesModel::where('is_enabled', '1')->get();
+
+        $document = ViewDocumentsModel::where('document_code', $document_code)->first();
+        return view(
+            'documents.update',
+            [
+                'document' => $document,
+                'authorList' => $authorList,
+                'documentTypeList' => $documentTypeList,
+                'maturityList' => $maturityList,
+                'genreList' => $genreList,
+                'categoryList' => $categoryList,
+            ]
+        );
     }
 
     /**
@@ -200,9 +220,36 @@ class DocumentRecordsController extends Controller
      * @param  \App\Models\DocumentRecordsModel  $documentRecordsModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DocumentRecordsModel $documentRecordsModel)
+    public function update(Request $request)
     {
-        //
+        $year = Carbon::now()->format('Y');
+
+        $request->validate([
+            'doc_title' => ['required', 'min:3', 'max:75'],
+            'summary' => ['required', 'min:3', 'max:100'],
+            'author_name' => ['required', 'min:3', 'max:80'],
+            'isbn_number' => ['nullable', 'min:10', 'max:15'],
+            'publication_year' => ['required', 'integer', 'min:1900', 'max:' . $year],
+            'quantity' => ['required', 'integer', 'min:0'],
+            'doc_type_name' => ['required', 'min:3', 'max:50',],
+            'maturity_name' => ['required', 'min:3', 'max:50',],
+            'genre_name' => ['required', 'min:3', 'max:50',],
+            'category_name' => ['required', 'min:3', 'max:50',],
+        ]);
+
+        $request->merge([
+            'short_desc' => $request->summary,
+            'author_code' => $request->author_name,
+            'doc_type_code' => $request->doc_type_name,
+            'maturity_code' => $request->maturity_name,
+            'genre_code' => $request->genre_name,
+            'category_code' => $request->category_name
+        ]);
+
+        DocumentsModel::where('document_code', $request->document_code)->update($request->only('document_code', 'doc_type_code', 'maturity_code', 'genre_code'));
+        DocumentRecordsModel::where('document_code', $request->document_code)->update($request->only('document_code', 'doc_title', 'short_desc', 'isbn_number', 'author_code', 'publication_year', 'quantity'));
+
+        return redirect()->route('documents.index')->with('success', 'Document has been successfully updated.');
     }
 
     /**

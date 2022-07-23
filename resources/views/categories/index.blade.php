@@ -17,7 +17,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-striped caption-top">
+                            <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -40,39 +40,27 @@
 
                                     @foreach ($categories as $category)
                                         <tr>
-                                            <th scope="row" class="pt-3">{{ $category->id }}.</th>
-                                            <td class="pt-3">{{ $category->short_desc }}</td>
-                                            <td class="text-truncate pt-3" style="max-width: 500px">
-                                                {{ $category->long_desc }}
+                                            <th scope="row">{{ $category->id }}.</th>
+                                            <td class="p-2">{{ $category->short_desc }}</td>
+                                            <td class="p-2" style="max-width: 500px">{{ $category->long_desc }}</td>
+                                            <td class="p-2">{{ $category->is_enabled == '1' ? 'Active' : 'Inactive' }}
                                             </td>
-                                            <td class="pt-3">
-                                                {{ $category->is_enabled == '1' ? 'Active' : 'Inactive' }}</td>
-                                            <td class="pt-3">{{ $category->created_at->format('D M d, Y h:m a') }}
-                                            </td>
-                                            <td class="pt-3">{{ $category->updated_at->format('D M d, Y h:m a') }}
-                                            </td>
-                                            <td class="pt-3">
-                                                <a href="#" class="btn btn-link btn-sm p-0" data-bs-toggle="dropdown"
-                                                    aria-labelledby="dropdown" aria-expanded="false">
+                                            <td class="p-2">{{ $category->created_at->format('D M d, Y h:m a') }}</td>
+                                            <td class="p-2">{{ $category->updated_at->format('D M d, Y h:m a') }}</td>
+                                            <td class="p-2">
+
+                                                <button type="button" class="btn btn-link btn-sm p-0"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                     <i class="fa-solid fa-ellipsis"></i>
-                                                </a>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownmenu">
+                                                </button>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu">
                                                     <li>
                                                         <a href="{{ route('categories.show', $category->category_code) }}"
-                                                            class="dropdown-item">
-                                                            {{ __('Update') }}
-                                                        </a>
+                                                            class="dropdown-item">Update</a>
                                                     </li>
                                                     <li>
-                                                        @if ($category->is_enabled == '1')
-                                                            <a href="#" class="dropdown-item">
-                                                                {{ __('Disable') }}
-                                                            @else
-                                                                <a href="#" class="dropdown-item">
-                                                                    {{ __('Enable') }}
-                                                                </a>
-                                                            </a>
-                                                        @endif
+                                                        <a href="#" class="dropdown-item">Disable</a>
                                                     </li>
                                                 </ul>
                                             </td>
@@ -81,7 +69,6 @@
 
                                 </tbody>
                             </table>
-                            {{ $categories->links() }}
                         </div>
 
                     </div>

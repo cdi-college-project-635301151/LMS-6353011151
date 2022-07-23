@@ -15,9 +15,9 @@ class AuthorsController extends Controller
      */
     public function index()
     {
-        $authors = AuthorsModel::paginate(15);
+        $authors = AuthorsModel::get();
 
-        return view('authors.index', compact('authors'))->with(request()->input('page'));
+        return view('authors.index', compact('authors'));
     }
 
     /**

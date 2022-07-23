@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AddressModel;
 use App\Models\MembersModel;
+use App\Models\ViewBorrowersRecordsModel;
 use App\Models\ViewMembersModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,8 +18,8 @@ class MembersController extends Controller
      */
     public function index()
     {
-        $members = ViewMembersModel::paginate(15);
-        return view('members.index', compact('members'))->with(request()->input('page'));
+        $members = ViewMembersModel::get();
+        return view('members.index', compact('members'));
     }
 
     /**
@@ -43,7 +44,7 @@ class MembersController extends Controller
         $request->validate([
             'first_name' => ['required', 'min:3', 'max:30'],
             'last_name' => ['required', 'min:3', 'max:30'],
-            'telephone' => ['required', 'min:10', 'max:13'],
+            'telephone' => ['required', 'min:10', 'max:13', 'unique:tbl_members'],
             'email' => ['required', 'email', 'max:50', 'unique:tbl_members'],
             'street_name' => ['required', 'min:5', 'max:50'],
             'city' => ['required', 'min:3', 'max:30'],
@@ -63,9 +64,10 @@ class MembersController extends Controller
      * @param  \App\Models\MembersModel  $membersModel
      * @return \Illuminate\Http\Response
      */
-    public function show(MembersModel $membersModel)
+    public function show(ViewMembersModel $member)
     {
-        //
+        $results = ViewBorrowersRecordsModel::where('member_code', $member->member_code)->get();
+        return view('members.history', compact('results'));
     }
 
     /**

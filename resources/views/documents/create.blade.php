@@ -12,6 +12,7 @@
 
                     <form action="{{ route('documents.store') }}" method="POST">
                         @csrf
+
                         {{-- Document Title --}}
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control @error('doc_title') is-invalid @enderror"
@@ -194,7 +195,7 @@
                         <div class="row mb-0">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Submit Book Record') }}
+                                    {{ __('Update Document') }}
                                 </button>
                                 <a type="button" class="btn btn-secondary" href="{{ route('book-isbn.index') }}">
                                     {{ __('Cancel') }}
